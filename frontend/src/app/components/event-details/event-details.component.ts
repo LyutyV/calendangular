@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, Signal, computed, effect } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, Signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,7 +26,7 @@ import { overlapValidator } from '../../formValidators/overlap.validator';
 })
 export class EventDetailsComponent implements OnInit {
     @Input() eventId!: string;
-    eventSignal!: Signal<ICalendarEvent | undefined>;
+    sceduledEventSignal!: Signal<ICalendarEvent | undefined>;
     @Output() close = new EventEmitter<void>();
 
     editForm: FormGroup;
@@ -48,7 +48,7 @@ export class EventDetailsComponent implements OnInit {
             }
         );
         effect(() => {
-            const event = this.eventSignal();
+            const event = this.sceduledEventSignal();
             if (event) {
                 this.editForm.patchValue({
                     id: event.id,
@@ -62,7 +62,7 @@ export class EventDetailsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.eventSignal = this.store.selectSignal(selectEventById(this.eventId));
+        this.sceduledEventSignal = this.store.selectSignal(selectEventById(this.eventId));
     }
 
     dragPreviewStartEnd(start: Date, end: Date) {
@@ -76,7 +76,7 @@ export class EventDetailsComponent implements OnInit {
         const newEnd = new Date(endTime);
 
         const updatedEvent: ICalendarEvent = {
-            ...this.eventSignal()!,
+            ...this.sceduledEventSignal()!,
             title,
             description,
             start: newStart,

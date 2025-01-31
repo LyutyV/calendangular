@@ -28,7 +28,7 @@
 </form>
 
 <div [style.visibility]="previewStart && previewEnd ? 'visible' : 'hidden'" class="preview">
-    <strong>New scedule of {{ eventSignal()?.title }}:</strong><br />
+    <strong>New scedule of {{ sceduledEventSignal()?.title }}:</strong><br />
     {{ previewStart | date : 'HH:mm' }} - {{ previewEnd | date : 'HH:mm' }}
 </div>
 
