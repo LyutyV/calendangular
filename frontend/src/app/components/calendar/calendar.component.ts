@@ -1,23 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit, WritableSignal, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, WritableSignal, computed, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { RouterModule } from '@angular/router';
-
-// Angular Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatTimepickerModule } from '@angular/material/timepicker';
-
-// CDK DragDrop (для використання директиви cdkDrag у під-компонентах)
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
 import { CalendarState } from '../../store/reducers/calendar.reducer';
 import { CalendarActionsGroup } from '../../store/actions/calendar.actions';
-
 import { CalendarService } from '../../services/calendar.service';
 import { ICalendarEvent } from '../../models/calendar.interface';
 import { EventComponent } from '../event/event.component';
@@ -66,6 +60,16 @@ export class CalendarComponent implements OnInit {
                 validators: [timeValidator, overlapValidator(this.calendarService)],
             }
         );
+        effect(() => {
+            const newDate = this.selectedDate();
+            newDate.setHours(0, 0, 0, 0);
+            if (newDate) {
+                this.addEventForm.patchValue({
+                    startTime: newDate,
+                    endTime: newDate,
+                });
+            }
+        });
     }
 
     ngOnInit() {

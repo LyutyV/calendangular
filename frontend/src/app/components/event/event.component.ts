@@ -67,8 +67,6 @@ export class EventComponent {
     }
 
     onDragMoved(event: CdkDragMove) {
-        console.log(event);
-
         const shiftY = event.distance.y;
         const newStartTime = new Date(this.sceduledEvent.start.getTime() + this.pixelsToMinutes(shiftY) * this.MILISECONDS_IN_MINUTE);
         const roundedTo5NewStartTime = this.calendarService.roundTo5(newStartTime);
