@@ -1,0 +1,48 @@
+<aside>
+    <h2>Calendangular</h2>
+    <div class="date-controls">
+        <mat-form-field>
+            <mat-label>Choose date</mat-label>
+            <input matInput [matDatepicker]="picker" [value]="selectedDate()" (dateChange)="selectedDate.set($event.value)" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-flat-button (click)="goToToday()">Today</button>
+    </div>
+    <h3>Create new event</h3>
+    <form [formGroup]="addEventForm">
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Start</mat-label>
+            <input matInput [matTimepicker]="startEventPicker" formControlName="startTime" />
+            <mat-timepicker-toggle matIconSuffix [for]="startEventPicker" />
+            <mat-timepicker interval="5min" #startEventPicker />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>End</mat-label>
+            <input matInput [matTimepicker]="endEventPicker" formControlName="endTime" />
+            <mat-timepicker-toggle matIconSuffix [for]="endEventPicker" />
+            <mat-timepicker interval="5min" #endEventPicker />
+        </mat-form-field>
+
+        <button mat-flat-button (click)="onCreateEvent()" [disabled]="addEventForm.invalid">Add event</button>
+    </form>
+</aside>
+
+<section>
+    <div class="time-slots" cdkDropList>
+        <div class="time-slot" *ngFor="let slot of timeSlots; trackBy: trackBySlot">{{ slot }}:00</div>
+        <app-event *ngFor="let sceduledEvent of sortedEvents(); trackBy: trackByEvent" [sceduledEvent]="sceduledEvent"></app-event>
+    </div>
+</section>

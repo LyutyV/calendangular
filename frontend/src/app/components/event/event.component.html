@@ -1,0 +1,26 @@
+<div
+    class="event-block"
+    cdkDrag
+    cdkDragBoundary=".time-slots"
+    cdkDragLockAxis="y"
+    (cdkDragMoved)="onDragMoved($event)"
+    (cdkDragEnded)="onDragEnd($event)"
+    [style.top.px]="topPosition"
+    [style.height.px]="eventBlockHeight"
+    (mousedown)="openDetails($event)"
+>
+    @if (eventBlockHeight > HOUR_HEIGHT_PX * 1.5) {
+    <div>
+        <div>
+            <span>Title: {{ sceduledEvent.title }}</span>
+            &nbsp;
+            <span>Description: {{ sceduledEvent.description }}</span>
+        </div>
+        <div>
+            <span>Start time: {{ sceduledEvent.start | date : 'HH:mm' }}</span>
+            &nbsp;
+            <span>End time: {{ sceduledEvent.end | date : 'HH:mm' }}</span>
+        </div>
+    </div>
+    }
+</div>

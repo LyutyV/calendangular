@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+
+:host {
+    position: fixed;
+    background: #fff;
+    border: 3px solid #333;
+    padding: 20px;
+    top: 60%;
+    transform: translateY(-50%);
+    left: 0px;
+    width: 370px;
+    height: 600px;
+    z-index: 100;
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    .preview {
+        margin: 10px 10px;
+        background-color: red;
+        padding: 10px;
+        border: 1px dashed #ccc;
+    }
+    @include mat.button-overrides(
+        (
+            filled-disabled-container-color: #ccc,
+        )
+    );
+}

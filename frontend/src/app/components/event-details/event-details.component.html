@@ -1,0 +1,39 @@
+<h3>Sceduled event details</h3>
+
+<form [formGroup]="editForm">
+    <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Start</mat-label>
+        <input matInput [matTimepicker]="startEventPicker" formControlName="startTime" />
+        <mat-timepicker-toggle matIconSuffix [for]="startEventPicker" />
+        <mat-timepicker interval="5min" #startEventPicker />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>End</mat-label>
+        <input matInput [matTimepicker]="endEventPicker" formControlName="endTime" />
+        <mat-timepicker-toggle matIconSuffix [for]="endEventPicker" />
+        <mat-timepicker interval="5min" #endEventPicker />
+    </mat-form-field>
+    <mat-error *ngIf="editForm.errors?.['invalidTimeRange']">End time must be after start time</mat-error>
+</form>
+
+<div [style.visibility]="previewStart && previewEnd ? 'visible' : 'hidden'" class="preview">
+    <strong>New scedule of {{ eventSignal()?.title }}:</strong><br />
+    {{ previewStart | date : 'HH:mm' }} - {{ previewEnd | date : 'HH:mm' }}
+</div>
+
+<div class="buttons">
+    <button mat-button color="primary" [disabled]="editForm.invalid || !editForm.dirty" (click)="onSave()">Save</button>
+    <button mat-button color="warn" (click)="onDelete()">Delete</button>
+    <button mat-button (click)="onCancel()">Close</button>
+</div>
