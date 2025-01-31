@@ -13,9 +13,7 @@
     - Rendering dates in the calendar using `*ngFor` with `trackBy`
     - Rendering the list of events using `*ngFor` with `trackBy`
     - Use of Angular Material for UI components
-    - Use of Angular CDK for drag-and-drop functionality
     - No additional libraries used
-    - Extensive use of RxJS for data streams
     - Use of NgRX for state management
     - Emulation of backend using `sessionStorage` with NgRX side effects
     - Use of Angular signals with NgRX
@@ -39,15 +37,15 @@
     ## Steps to Run
 
     1. Clone the repository:
-        ```bash
-        git clone https://github.com/LyutyV/calendangular.git
-        cd calendangular/frontend
-        ```
+    ```bash
+    git clone https://github.com/LyutyV/calendangular.git
+    cd calendangular/frontend
+    ```
 
     2. Install dependencies:
-        ```bash
-        npm install
-        ng serve
-        ```
+    ```bash
+    npm install
+    ng serve
+    ```
 
     3. Open your browser and navigate to `http://localhost:4200`
